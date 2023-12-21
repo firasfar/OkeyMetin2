@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OKEY Card Selection</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0; /* Light background color */
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      max-width: 800px; /* Adjust as needed */
+    }
+
+    .card {
+      width: 80px;
+      height: 120px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 38px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #red1, #red2, #red3, #red4, #red5, #red6, #red7, #red8 {
+      background-color: #7a3131; /* Red color */
+      color: white;
+    }
+
+    #yellow1, #yellow2, #yellow3, #yellow4, #yellow5, #yellow6, #yellow7, #yellow8 {
+      background-color: #a47e2d; /* Yellow color */
+      color: white;
+    }
+
+    #blue1, #blue2, #blue3, #blue4, #blue5, #blue6, #blue7, #blue8 {
+      background-color: #3065a6; /* Blue color */
+      color: white;
+    }
+
+    .card.selected {
+      background-color: #4caf50 !important; /* Green color when selected */
+      color: white;
+    }
+
+    .card:not(.selected):hover {
+      background-color: #e0e0e0; /* Gray hover effect when not selected */
+    }
+
+    .reset-button {
+      margin-top: 25px;
+      background-color: #e74c3c; /* Red color for reset button */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .reset-button:hover {
+      background-color: #c0392b; /* Darker red on hover */
+    }
+
+    .mt-7 {
+      margin-top: 7px;
+    }
+
+    .select-column-button {
+      margin-top: 10px;
+      background-color: #3498db; /* Blue color for column selection button */
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .select-column-button:hover {
+      background-color: #2980b9; /* Darker blue on hover */
+    }
+
+    /* Added CSS for the "+" buttons */
+    .column-button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .select-column-button {
+      margin-top: 10px;
+    }
+	
+	.mr-5 {
+      margin-right: 45px;
+	  }
+  </style>
+</head>
+<body>
+
+  <div class="card-container">
+    <!-- Blue Column Button -->
+    <button class="select-column-button mr-5" onclick="selectAllInColumn('1')">+</button>
+	<button class="select-column-button mr-5" onclick="selectAllInColumn('2')">+</button>
+	<button class="select-column-button mr-5" onclick="selectAllInColumn('3')">+</button>
+	<button class="select-column-button mr-5" onclick="selectAllInColumn('4')">+</button>
+	<button class="select-column-button mr-5" onclick="selectAllInColumn('5')">+</button>
+	<button class="select-column-button mr-5" onclick="selectAllInColumn('6')">+</button>
+	<button class="select-column-button mr-5" onclick="selectAllInColumn('7')">+</button>
+	<button class="select-column-button" onclick="selectAllInColumn('8')">+</button>
+  </div>
+
+  <div class="card-container mt-7">
+    <!-- Red Cards -->
+    <div class="card" id="red1" oncontextmenu="handleRightClick(event, 'red1')">1</div>
+    <div class="card" id="red2" oncontextmenu="handleRightClick(event, 'red2')">2</div>
+    <div class="card" id="red3" oncontextmenu="handleRightClick(event, 'red3')">3</div>
+    <div class="card" id="red4" oncontextmenu="handleRightClick(event, 'red4')">4</div>
+    <div class="card" id="red5" oncontextmenu="handleRightClick(event, 'red5')">5</div>
+    <div class="card" id="red6" oncontextmenu="handleRightClick(event, 'red6')">6</div>
+    <div class="card" id="red7" oncontextmenu="handleRightClick(event, 'red7')">7</div>
+    <div class="card" id="red8" oncontextmenu="handleRightClick(event, 'red8')">8</div>
+  </div>
+
+  <div class="card-container mt-7">
+    <!-- Yellow Cards -->
+    <div class="card" id="yellow1" oncontextmenu="handleRightClick(event, 'yellow1')">1</div>
+    <div class="card" id="yellow2" oncontextmenu="handleRightClick(event, 'yellow2')">2</div>
+    <div class="card" id="yellow3" oncontextmenu="handleRightClick(event, 'yellow3')">3</div>
+    <div class="card" id="yellow4" oncontextmenu="handleRightClick(event, 'yellow4')">4</div>
+    <div class="card" id="yellow5" oncontextmenu="handleRightClick(event, 'yellow5')">5</div>
+    <div class="card" id="yellow6" oncontextmenu="handleRightClick(event, 'yellow6')">6</div>
+    <div class="card" id="yellow7" oncontextmenu="handleRightClick(event, 'yellow7')">7</div>
+    <div class="card" id="yellow8" oncontextmenu="handleRightClick(event, 'yellow8')">8</div>
+  </div>
+
+  <div class="card-container mt-7">
+    <!-- Blue Cards -->
+    <div class="card" id="blue1" oncontextmenu="handleRightClick(event, 'blue1')">1</div>
+    <div class="card" id="blue2" oncontextmenu="handleRightClick(event, 'blue2')">2</div>
+    <div class="card" id="blue3" oncontextmenu="handleRightClick(event, 'blue3')">3</div>
+    <div class="card" id="blue4" oncontextmenu="handleRightClick(event, 'blue4')">4</div>
+    <div class="card" id="blue5" oncontextmenu="handleRightClick(event, 'blue5')">5</div>
+    <div class="card" id="blue6" oncontextmenu="handleRightClick(event, 'blue6')">6</div>
+    <div class="card" id="blue7" oncontextmenu="handleRightClick(event, 'blue7')">7</div>
+    <div class="card" id="blue8" oncontextmenu="handleRightClick(event, 'blue8')">8</div>
+  </div>
+
+  <button class="reset-button mt-7" onclick="resetCards()">Reset Cards</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.card');
+
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          card.classList.toggle('selected');
+        });
+      });
+    });
+
+    function resetCards() {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.classList.remove('selected');
+      });
+    }
+
+    function handleRightClick(event, cardId) {
+      event.preventDefault(); // Disable default context menu
+
+      const clickedCard = document.getElementById(cardId);
+      if (clickedCard) {
+        // Check if the card is not the last two in the row
+        if (!cardId.endsWith('7') && !cardId.endsWith('8')) {
+          // Select the clicked card and the two cards to its right
+          clickedCard.classList.toggle('selected');
+          const nextCard1 = document.getElementById(cardId.slice(0, -1) + (parseInt(cardId.slice(-1)) + 1));
+          const nextCard2 = document.getElementById(cardId.slice(0, -1) + (parseInt(cardId.slice(-1)) + 2));
+
+          if (nextCard1) {
+            nextCard1.classList.toggle('selected');
+          }
+          if (nextCard2) {
+            nextCard2.classList.toggle('selected');
+          }
+        }
+      }
+    }
+
+    function selectAllInColumn(columnNumber) {
+  // Select all cards with the same column number for each color
+  ['red', 'yellow', 'blue'].forEach(color => {
+    const currentColor = `${color}${columnNumber}`;
+    const columnCards = document.querySelectorAll(`[id^=${currentColor}]`);
+
+    columnCards.forEach(card => {
+      card.classList.toggle('selected');
+    });
+  });
+}
+  </script>
+
+</body>
+</html>
